@@ -1,15 +1,14 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.Button;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class Window extends JFrame {
 
@@ -18,6 +17,12 @@ public class Window extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	
+	public int blackJack = 21;
+	
+	Random random = new Random();
+	int playerCard = random.nextInt(11) + 1;
+	int dealerCard = random.nextInt(11) + 1;
 
 	/**
 	 * Launch the application.
@@ -49,8 +54,11 @@ public class Window extends JFrame {
 		JButton btnNewButton = new JButton("Hit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnNewButton) {
+					textField.setText(playerCard + " ");
+					textField_1.setText(dealerCard - 2 + "-" + (dealerCard + 2) + " ");
 			}
-		});
+			}});
 		btnNewButton.setBounds(468, 62, 184, 62);
 		contentPane.add(btnNewButton);
 		
@@ -103,4 +111,7 @@ public class Window extends JFrame {
 		lblCardDrawn.setBounds(0, 100, 100, 23);
 		contentPane.add(lblCardDrawn);
 	}
-}
+	
+
+	}
+
