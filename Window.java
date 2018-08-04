@@ -21,11 +21,6 @@ public class Window extends JFrame {
 	public int blackJack = 21;
 	
 	Random random = new Random();
-	int playerCard = random.nextInt(11) + 1;
-	int dealerCard = random.nextInt(11) + 1;
-	int dealerCardMax = dealerCard + random.nextInt(4);
-	int dealerCardMin = dealerCard - random.nextInt(4);
-	
 
 	/**
 	 * Launch the application.
@@ -58,6 +53,10 @@ public class Window extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnNewButton) {
+			int playerCard = random.nextInt(11) + 1;
+			int dealerCard = random.nextInt(11) + 1;
+			int dealerCardMax = dealerCard + random.nextInt(4);
+			int dealerCardMin = dealerCard - random.nextInt(4);
 					textField.setText(playerCard + " ");
 					if(dealerCardMin < 0) {
 						dealerCardMin = 0;
