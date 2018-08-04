@@ -98,5 +98,9 @@ public class Window extends JFrame {
 		JLabel label = new JLabel("");
 		label.setBounds(200, 267, 126, 40);
 		contentPane.add(label);
+		
+		JLabel lblCardDrawn = new JLabel("Card Drawn:");
+		lblCardDrawn.setBounds(0, 100, 100, 23);
+		contentPane.add(lblCardDrawn);
 	}
 }
