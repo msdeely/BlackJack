@@ -23,6 +23,9 @@ public class Window extends JFrame {
 	Random random = new Random();
 	int playerCard = random.nextInt(11) + 1;
 	int dealerCard = random.nextInt(11) + 1;
+	int dealerCardMax = dealerCard + random.nextInt(4);
+	int dealerCardMin = dealerCard - random.nextInt(4);
+	
 
 	/**
 	 * Launch the application.
@@ -56,7 +59,11 @@ public class Window extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnNewButton) {
 					textField.setText(playerCard + " ");
-					textField_1.setText(dealerCard - 2 + "-" + (dealerCard + 2) + " ");
+					if(dealerCardMin < 0) {
+						dealerCardMin = 0;
+						dealerCardMax++;
+					}
+					textField_1.setText(dealerCardMin + "-" + dealerCardMax + " ");
 			}
 			}});
 		btnNewButton.setBounds(468, 62, 184, 62);
