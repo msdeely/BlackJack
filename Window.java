@@ -18,7 +18,8 @@ public class Window extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	
-	public int blackJack = 21, playerCard, dealerCard, playerHandSum, dealerHandMin, dealerHandMax;
+	public int blackJack = 21, playerCard, dealerCard, playerHandSum,
+	dealerHandMin, dealerHandMax, dealerHandSum;
 	
 	Random random = new Random();
 
@@ -51,6 +52,8 @@ public class Window extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JLabel label = new JLabel("");
+		
 		JButton btnNewButton = new JButton("Hit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -62,10 +65,18 @@ public class Window extends JFrame {
 					playerHandSum += playerCard;
 					dealerHandMin += dealerCardMin;
 					dealerHandMax += dealerCardMax;
+					dealerHandSum += dealerCard;
 					textField.setText(playerCard + " ");
 					if(dealerCardMin < 0) {
 						dealerCardMin = 0;
 						dealerCardMax++;
+					}
+					
+					if(playerHandSum > blackJack) {
+						label.setText("You lost! Dealer had a hand of: " + dealerHandSum);
+					}
+					if(dealerHandSum > blackJack) {
+						label.setText("You win! Dealer busted with a: " + dealerHandSum);
 					}
 					textField_2.setText(playerHandSum + " ");
 					textField_3.setText(dealerHandMin + "-" + dealerHandMax);
@@ -76,6 +87,14 @@ public class Window extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Stay");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnNewButton_1) {
+					playerHandSum += 0;
+					dealerHandSum += 0;
+				}
+			}
+			});
 		btnNewButton_1.setBounds(468, 140, 184, 62);
 		contentPane.add(btnNewButton_1);
 		
@@ -115,8 +134,8 @@ public class Window extends JFrame {
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
 		
-		JLabel label = new JLabel("");
-		label.setBounds(200, 267, 126, 40);
+		
+		label.setBounds(176, 267, 252, 40);
 		contentPane.add(label);
 		
 		JLabel lblCardDrawn = new JLabel("Card Drawn:");
