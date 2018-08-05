@@ -18,9 +18,11 @@ public class Window extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	
-	public int blackJack = 21;
+	public int blackJack = 21, playerCard, dealerCard, playerHandSum, dealerHandMin, dealerHandMax;
 	
 	Random random = new Random();
+
+	
 
 	/**
 	 * Launch the application.
@@ -53,23 +55,27 @@ public class Window extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnNewButton) {
-			int playerCard = random.nextInt(11) + 1;
-			int dealerCard = random.nextInt(11) + 1;
-			int dealerCardMax = dealerCard + random.nextInt(4);
-			int dealerCardMin = dealerCard - random.nextInt(4);
+					 playerCard = random.nextInt(11) + 1;
+					 dealerCard = random.nextInt(11) + 1;
+					int dealerCardMax = dealerCard + random.nextInt(4);
+					int dealerCardMin = dealerCard - random.nextInt(4);
+					playerHandSum += playerCard;
+					dealerHandMin += dealerCardMin;
+					dealerHandMax += dealerCardMax;
 					textField.setText(playerCard + " ");
 					if(dealerCardMin < 0) {
 						dealerCardMin = 0;
 						dealerCardMax++;
 					}
-					textField_1.setText(dealerCardMin + "-" + dealerCardMax + " ");
+					textField_2.setText(playerHandSum + " ");
+					textField_3.setText(dealerHandMin + "-" + dealerHandMax);
+					textField_1.setText(dealerCardMin + "-" + dealerCardMax);
 			}
 			}});
 		btnNewButton.setBounds(468, 62, 184, 62);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Stay"
-				+ "");
+		JButton btnNewButton_1 = new JButton("Stay");
 		btnNewButton_1.setBounds(468, 140, 184, 62);
 		contentPane.add(btnNewButton_1);
 		
