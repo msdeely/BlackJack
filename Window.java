@@ -14,11 +14,10 @@ public class Window extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textField_1, textField_2, textField_3;
 	public String[] suits = { "Diamonds", "Clubs", "Hearts", "Spades" };
-	public int blackJack = 21, playerCard, dealerCard, playerHandSum, dealerHandMin, dealerHandMax, dealerHandSum;
+	public int blackJack = 21, playerCard, dealerCard, playerHandSum, dealerHandMin, dealerHandMax, dealerHandSum,
+	playerWins = 0, dealerWins = 0;
 
 	Random random = new Random();
 
@@ -56,41 +55,58 @@ public class Window extends JFrame {
 		JButton btnNewButton = new JButton("Hit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if (e.getSource() == btnNewButton) {
+					
 					playerCard = random.nextInt(11) + 1;
 					dealerCard = random.nextInt(11) + 1;
-					int dealerCardMax = dealerCard + random.nextInt(4);
-					int dealerCardMin = dealerCard - random.nextInt(4);
+					int dealerCardMax = dealerCard + random.nextInt(3);
+					int dealerCardMin = dealerCard - random.nextInt(3);
 					playerHandSum += playerCard;
 					dealerHandMin += dealerCardMin;
 					dealerHandMax += dealerCardMax;
-
 					textField.setText(playerCard + " of " + suits[random.nextInt(4)]);
+					
 					if (dealerCardMin < 0) {
+						
 						dealerCardMin = 0;
 						dealerCardMax++;
+						
 					}
-
+				
 					if (dealerHandSum < 19) {
+						
 						dealerHandSum += dealerCard;
+						
 					} else {
+						
 						dealerHandSum += 0;
+						
 					}
 
 					if (playerHandSum > blackJack) {
+						
 						label.setText("You busted! Dealer had a hand of: " + dealerHandSum);
-					} else if (dealerHandSum > blackJack && playerHandSum <= blackJack) {
+						dealerWins++;
+						
+					} else if (dealerHandSum > blackJack && playerHandSum < blackJack) {
 						label.setText("You win! Dealer busted with a: " + dealerHandSum);
-					} else if (playerHandSum == dealerHandSum
-							&& (playerHandSum > blackJack && dealerHandSum > blackJack)) {
+						playerWins++;
+						
+					} else if (playerHandSum == dealerHandSum && (playerHandSum > blackJack && dealerHandSum > blackJack)) {
 						label.setText("It's a tie!");
+						
 					} else if (dealerHandSum == blackJack) {
-						label.setText("Dealer won!");
+						label.setText("Dealer hit blackJack!");
+						dealerWins++;
+						
+					} else if (playerHandSum == blackJack) {
+						label.setText("You hit blackJack!");
 					}
 
 					textField_1.setText(dealerCardMin + "-" + dealerCardMax + " of " + suits[random.nextInt(4)]);
 					textField_2.setText(playerHandSum + " ");
-					textField_3.setText(dealerHandSum + "");
+					textField_3.setText(dealerHandMin + "-" + dealerHandMax);
 
 				}
 			}
@@ -103,19 +119,32 @@ public class Window extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnNewButton_1) {
 					if (dealerHandSum < playerHandSum && dealerHandSum < 18) {
+						
 						dealerCard = random.nextInt(11) + 1;
 						dealerHandSum += dealerCard;
-						textField_3.setText(dealerHandSum + "");
+						dealerHandMin += random.nextInt(3);
+						dealerHandMax += random.nextInt(3);
+						textField_3.setText(dealerHandMin + "-" + dealerHandMax);
+						
+					} else if (dealerHandSum == blackJack) {
+						
+						label.setText("Dealer hit blackJack!");
+						
 					} else if (playerHandSum > dealerHandSum && dealerHandSum >= 18 && playerHandSum <= blackJack
 							|| dealerHandSum > blackJack) {
-						label.setText("You won!");
+						
+						label.setText("You won! Dealer had a hand of: " + dealerHandSum);
+						playerWins++;
 
-					} else if (dealerHandSum == blackJack || playerHandSum > blackJack
-							|| playerHandSum < dealerHandSum) {
-						label.setText("You lost!");
+					} else if (playerHandSum > blackJack || playerHandSum < dealerHandSum) {
+						label.setText("You lost! Dealer had a hand of: " + dealerHandSum);
+						dealerWins++;
+						
 					} else if (dealerHandSum == playerHandSum) {
-						label.setText("Tie");
+						label.setText("Tie. You both a hand of: " + playerHandSum);
+						
 					}
+
 				}
 			}
 		});
@@ -168,18 +197,23 @@ public class Window extends JFrame {
 		JButton btnNewButton_3 = new JButton("Play Again");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == btnNewButton_3)
-					textField.setText("");
-					textField_1.setText("");
-					textField_2.setText("");
-					textField_3.setText("");
-					label.setText("");
-					playerCard = 0; dealerCard = 0; playerHandSum = 0; dealerHandSum = 0;
-					
-					
+				if (e.getSource() == btnNewButton_3)
+				textField.setText("");
+				textField_1.setText("");
+				textField_2.setText("");
+				textField_3.setText("");
+				label.setText("");
 				
+				playerCard = 0;
+				dealerCard = 0;
+				playerHandSum = 0;
+				dealerHandSum = 0;
+				dealerHandMax = 0;
+				dealerHandMin = 0;
+
 			}
 		});
+		
 		btnNewButton_3.setBounds(546, 302, 184, 62);
 		contentPane.add(btnNewButton_3);
 	}
