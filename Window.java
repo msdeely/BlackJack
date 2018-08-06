@@ -84,7 +84,7 @@ public class Window extends JFrame {
 					} else if (playerHandSum == dealerHandSum
 							&& (playerHandSum > blackJack && dealerHandSum > blackJack)) {
 						label.setText("It's a tie!");
-					}else if(dealerHandSum == blackJack) {
+					} else if (dealerHandSum == blackJack) {
 						label.setText("Dealer won!");
 					}
 
@@ -102,15 +102,19 @@ public class Window extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == btnNewButton_1) {
-					if (dealerHandSum < playerHandSum) {
+					if (dealerHandSum < playerHandSum && dealerHandSum < 18) {
+						dealerCard = random.nextInt(11) + 1;
 						dealerHandSum += dealerCard;
 						textField_3.setText(dealerHandSum + "");
-					} else if (playerHandSum > dealerHandSum && dealerHandSum > 18 && playerHandSum <= blackJack
+					} else if (playerHandSum > dealerHandSum && dealerHandSum >= 18 && playerHandSum <= blackJack
 							|| dealerHandSum > blackJack) {
 						label.setText("You won!");
 
-					} else if (dealerHandSum == blackJack || playerHandSum > blackJack) {
+					} else if (dealerHandSum == blackJack || playerHandSum > blackJack
+							|| playerHandSum < dealerHandSum) {
 						label.setText("You lost!");
+					} else if (dealerHandSum == playerHandSum) {
+						label.setText("Tie");
 					}
 				}
 			}
@@ -160,10 +164,20 @@ public class Window extends JFrame {
 		JLabel lblCardDrawn = new JLabel("Card Drawn:");
 		lblCardDrawn.setBounds(0, 100, 100, 23);
 		contentPane.add(lblCardDrawn);
-		
+
 		JButton btnNewButton_3 = new JButton("Play Again");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnNewButton_3)
+					textField.setText("");
+					textField_1.setText("");
+					textField_2.setText("");
+					textField_3.setText("");
+					label.setText("");
+					playerCard = 0; dealerCard = 0; playerHandSum = 0; dealerHandSum = 0;
+					
+					
+				
 			}
 		});
 		btnNewButton_3.setBounds(546, 302, 184, 62);
