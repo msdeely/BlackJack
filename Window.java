@@ -51,6 +51,8 @@ public class Window extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel label = new JLabel("");
+		JLabel label_1 = new JLabel("");
+		JLabel lblNewLabel_1 = new JLabel("");
 
 		JButton btnNewButton = new JButton("Hit");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -66,7 +68,8 @@ public class Window extends JFrame {
 					dealerHandMin += dealerCardMin;
 					dealerHandMax += dealerCardMax;
 					textField.setText(playerCard + " of " + suits[random.nextInt(4)]);
-					
+					label_1.setText(playerWins + "");
+					lblNewLabel_1.setText(dealerWins + "");
 					if (dealerCardMin < 0) {
 						
 						dealerCardMin = 0;
@@ -92,6 +95,7 @@ public class Window extends JFrame {
 					} else if (dealerHandSum > blackJack && playerHandSum < blackJack) {
 						label.setText("You win! Dealer busted with a: " + dealerHandSum);
 						playerWins++;
+
 						
 					} else if (playerHandSum == dealerHandSum && (playerHandSum > blackJack && dealerHandSum > blackJack)) {
 						label.setText("It's a tie!");
@@ -99,15 +103,19 @@ public class Window extends JFrame {
 					} else if (dealerHandSum == blackJack) {
 						label.setText("Dealer hit blackJack!");
 						dealerWins++;
+				
 						
 					} else if (playerHandSum == blackJack) {
 						label.setText("You hit blackJack!");
+						playerWins++;	
+					
 					}
 
 					textField_1.setText(dealerCardMin + "-" + dealerCardMax + " of " + suits[random.nextInt(4)]);
 					textField_2.setText(playerHandSum + " ");
 					textField_3.setText(dealerHandMin + "-" + dealerHandMax);
-
+					lblNewLabel_1.setText(playerWins + "");
+					label_1.setText(dealerWins + "");
 				}
 			}
 		});
@@ -129,6 +137,7 @@ public class Window extends JFrame {
 					} else if (dealerHandSum == blackJack) {
 						
 						label.setText("Dealer hit blackJack!");
+						dealerWins++;
 						
 					} else if (playerHandSum > dealerHandSum && dealerHandSum >= 18 && playerHandSum <= blackJack
 							|| dealerHandSum > blackJack) {
@@ -144,7 +153,9 @@ public class Window extends JFrame {
 						label.setText("Tie. You both a hand of: " + playerHandSum);
 						
 					}
-
+					
+					lblNewLabel_1.setText(playerWins + "");
+					label_1.setText(dealerWins + "");
 				}
 			}
 		});
@@ -216,5 +227,17 @@ public class Window extends JFrame {
 		
 		btnNewButton_3.setBounds(546, 302, 184, 62);
 		contentPane.add(btnNewButton_3);
+		
+		JLabel lblNewLabel = new JLabel("Wins");
+		lblNewLabel.setBounds(15, 344, 69, 20);
+		contentPane.add(lblNewLabel);
+		
+		
+		lblNewLabel_1.setBounds(126, 344, 69, 20);
+		contentPane.add(lblNewLabel_1);
+		
+		
+		label_1.setBounds(328, 344, 69, 20);
+		contentPane.add(label_1);
 	}
 }
